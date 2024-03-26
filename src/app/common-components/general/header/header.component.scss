@@ -1,0 +1,95 @@
+@import "../../../../styles.scss";
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px 0 30px;
+
+  .logo {
+    width: 75px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .info-container {
+    width: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    span {
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    i {
+      font-size: 25px;
+      cursor: pointer;
+    }
+  }
+
+  .search-container {
+    height: 38px;
+    width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    input {
+      min-height: 100%;
+      min-width: 100%;
+      font-size: $font-size-normal;
+      padding: 0 45px 0 16px;
+      border-radius: $border-radius 0 0 $border-radius;
+      border: 1px solid $primary-grey;
+      transition: box-shadow 0.3s, background-color 0.3s;
+      outline: none;
+      background-color: transparent;
+
+      &:focus {
+        box-shadow: transparent;
+        border: 1px solid $primary-blue;
+      }
+
+      &:not(:placeholder-shown) {
+        color: $primary-light;
+        font-size: $font-size-normal;
+      }
+    }
+
+    .clear-button,
+    .search-button {
+      height: 100%;
+      color: $primary-light;
+      background-color: $secondary-dark;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      i {
+        font-size: 30px;
+      }
+    }
+
+    .clear-button {
+      padding: 0;
+      background-color: transparent;
+      position: absolute;
+      right: 40px;
+      cursor: pointer;
+    }
+
+    .search-button {
+      min-width: 64px;
+      padding: 0 6px;
+      border-radius: 0 $border-radius $border-radius 0;
+      border: 1px solid $primary-grey;
+      border-left: none;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+<div *ngIf="user != null" class="info-container">
+  <h2>Name : {{ user.name }}</h2>
+  <h3>Surname : {{ user.surname }}</h3>
+  <h3>Id : {{ user.id }}</h3>
+  <h3>Role : {{ user.role }}</h3>
+  <h3>Username : {{ user.username }}</h3>
+  <button (click)="logout()" class="standard-button">Logout</button>
+</div>

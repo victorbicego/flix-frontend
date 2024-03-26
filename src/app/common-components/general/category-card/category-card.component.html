@@ -1,0 +1,10 @@
+<div
+  [ngClass]="{ selected: isSelected }"
+  *ngIf="category != null"
+  class="card"
+  (click)="emitChangeCategory(category)"
+>
+  <p>
+    {{ category | titlecase }}
+  </p>
+</div>

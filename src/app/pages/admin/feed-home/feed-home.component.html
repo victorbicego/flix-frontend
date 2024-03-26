@@ -1,0 +1,26 @@
+<div class="main-container">
+  <app-table-selection
+    *ngIf="selectedTable != null"
+    [tableList]="tableList"
+    [selectedTable]="selectedTable"
+    (changeTable)="changeTable($event)"
+  ></app-table-selection>
+
+  <app-admin-info
+    class="table-container"
+    *ngIf="selectedTable === 'info'"
+    [environment]="'feed'"
+  ></app-admin-info>
+
+  <app-video-table
+    class="table-container"
+    *ngIf="selectedTable === 'videos'"
+    [environment]="'feed'"
+  ></app-video-table>
+
+  <app-user-table
+    class="table-container"
+    *ngIf="selectedTable === 'users'"
+    [environment]="'feed'"
+  ></app-user-table>
+</div>

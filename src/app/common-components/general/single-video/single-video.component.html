@@ -1,0 +1,30 @@
+<div *ngIf="videoChannel != null" class="single-video-container">
+  <iframe
+    [src]="videoUtilsService.getYouTubeEmbedUrl(videoChannel.video.link)"
+    frameborder="0"
+    allowfullscreen
+  ></iframe>
+  <div class="information-container">
+    <h2 class="video-title">{{ videoChannel.video.title }}</h2>
+    <div class="video-info-container">
+      <img
+        class="channel-logo"
+        src="{{ videoChannel.channel.logoLink }}"
+        alt="channel logo"
+        (click)="navigateToChannelPage(videoChannel.channel.id)"
+      />
+      <div class="a">
+        <span
+          class="channel-name"
+          (click)="navigateToChannelPage(videoChannel.channel.id)"
+          >{{ videoChannel.channel.name }}</span
+        >
+        <p class="video-date">{{ videoChannel.video.date | date }}</p>
+      </div>
+    </div>
+    <p
+      class="video-description"
+      [innerHTML]="videoChannel.video.description | convertDescription"
+    ></p>
+  </div>
+</div>

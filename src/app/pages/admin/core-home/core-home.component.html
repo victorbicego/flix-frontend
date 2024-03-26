@@ -1,0 +1,32 @@
+<div class="main-container">
+  <app-table-selection
+    *ngIf="selectedTable != null"
+    [tableList]="tableList"
+    [selectedTable]="selectedTable"
+    (changeTable)="changeTable($event)"
+  ></app-table-selection>
+
+  <app-admin-info
+    class="table-container"
+    *ngIf="selectedTable === 'info'"
+    [environment]="'core'"
+  ></app-admin-info>
+
+  <app-video-table
+    class="table-container"
+    *ngIf="selectedTable === 'videos'"
+    [environment]="'core'"
+  ></app-video-table>
+
+  <app-user-table
+    class="table-container"
+    *ngIf="selectedTable === 'users'"
+    [environment]="'core'"
+  ></app-user-table>
+
+  <app-channel-table
+    class="table-container"
+    *ngIf="selectedTable === 'channels'"
+    [environment]="'core'"
+  ></app-channel-table>
+</div>

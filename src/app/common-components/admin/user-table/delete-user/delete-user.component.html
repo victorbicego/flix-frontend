@@ -1,0 +1,32 @@
+<div class="modal-container-out" *ngIf="userToDelete != null">
+  <div class="popup-container">
+    <div class="title-container">
+      <h2>Delete User</h2>
+      <button class="close-button" (click)="closeModal()">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div class="form-group">
+      <p>
+        You want delete the user with Username :
+        <span class="user-info">{{ userToDelete.username }}</span>
+      </p>
+    </div>
+    <div class="button-group">
+      <button
+        class="standard-button submit-button"
+        type="submit"
+        (click)="deleteUser()"
+      >
+        Delete
+      </button>
+      <button
+        class="standard-button cancel-button"
+        type="button"
+        (click)="closeModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

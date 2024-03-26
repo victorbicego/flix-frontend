@@ -1,0 +1,51 @@
+@import "../../../../styles.scss";
+
+.single-video-container {
+  width: 100%;
+
+  iframe {
+    width: 100%;
+    height: 72.5vh;
+    border-radius: $border-radius;
+  }
+
+  .information-container {
+    .video-title {
+      font-size: $font-size-large;
+      font-weight: 700;
+      margin: 10px 0;
+    }
+
+    .video-info-container {
+      display: flex;
+      align-items: center;
+
+      .channel-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+
+      .channel-name {
+        font-size: $font-size-normal;
+        cursor: pointer;
+      }
+
+      .video-date {
+        margin-top: 5px;
+        font-size: $font-size-small;
+        color: $secondary-grey;
+      }
+    }
+
+    .video-description {
+      margin: 15px 0 0 0;
+      padding: 15px;
+      border-radius: $border-radius;
+      font-size: $font-size-small;
+      background-color: $secondary-dark;
+    }
+  }
+}

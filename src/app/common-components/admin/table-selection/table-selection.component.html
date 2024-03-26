@@ -1,0 +1,8 @@
+<div *ngIf="tableList.length > 0" class="selection-container">
+  <app-table-selection-card
+    *ngFor="let table of tableList"
+    [table]="table"
+    [isSelected]="table === selectedTable"
+    (changeTable)="emitChangeTable($event)"
+  ></app-table-selection-card>
+</div>

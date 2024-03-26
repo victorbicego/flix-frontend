@@ -1,0 +1,8 @@
+<div *ngIf="categoryList.length > 0" class="selection-container">
+  <app-category-card
+    *ngFor="let category of categoryList"
+    [category]="category"
+    [isSelected]="category === searchHelperService.getCategory()"
+    (changeCategory)="emitChangeCategory($event)"
+  ></app-category-card>
+</div>

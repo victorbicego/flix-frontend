@@ -1,0 +1,72 @@
+<div class="modal-container-out" *ngIf="channelForm != null">
+  <div class="popup-container" [formGroup]="channelForm">
+    <div class="title-container">
+      <h2>Create New Channel</h2>
+      <button class="close-button" (click)="closeModal()">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Name"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        type="text"
+        id="mainLink"
+        formControlName="mainLink"
+        placeholder="Channel Link"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        type="text"
+        id="logoLink"
+        formControlName="logoLink"
+        placeholder="Logo Link"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        type="text"
+        id="backgroundLink"
+        formControlName="backgroundLink"
+        placeholder="Background Link"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        type="text"
+        id="tag"
+        formControlName="tag"
+        placeholder="Tag"
+      />
+    </div>
+    <div class="button-group">
+      <button
+        class="standard-button submit-button"
+        type="submit"
+        [disabled]="!channelForm.valid"
+        (click)="updateChannel()"
+      >
+        Create
+      </button>
+      <button
+        class="standard-button cancel-button"
+        type="button"
+        (click)="closeModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

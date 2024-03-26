@@ -1,0 +1,42 @@
+<app-table
+  class="table-container"
+  (openUpdateModal)="openUpdateModal($event)"
+  (openDeleteModal)="openDeleteModal($event)"
+  [channelList]="channelList"
+>
+</app-table>
+
+<div class="interaction-container">
+  <button class="standard-button" (click)="openCreateModal()">
+    Add Channel
+  </button>
+  <app-table-pagination
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    [list]="channelList"
+    (nextPage)="nextPage()"
+    (prevPage)="prevPage()"
+    (changePageSize)="changePageSize($event)"
+  ></app-table-pagination>
+</div>
+
+<app-create-channel
+  *ngIf="isCreateModalOpen"
+  class="modal-container"
+  (closePopUp)="closeCreateModal()"
+  [environment]="environment"
+></app-create-channel>
+<app-update-channel
+  *ngIf="isUpdateModalOpen"
+  class="modal-container"
+  (closePopUp)="closeUpdateModal()"
+  [environment]="environment"
+  [channelToEdit]="channelToWork"
+></app-update-channel>
+<app-delete-channel
+  *ngIf="isDeleteModalOpen && channelToWork != null"
+  class="modal-container"
+  (closePopUp)="closeDeleteModal()"
+  [channelToDelete]="channelToWork"
+  [environment]="environment"
+></app-delete-channel>

@@ -1,0 +1,50 @@
+<table class="table-container">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Date</th>
+      <th>Channel ID</th>
+      <th>Category</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="videoList.length > 0">
+    <tr *ngFor="let video of videoList">
+      <td>
+        <span (click)="navigateToSingleVideo(video.id)" class="link">{{
+          video.title
+        }}</span>
+      </td>
+      <td>
+        <i
+          (click)="emitOpenDescriptionModal(video)"
+          title="{{ video.description }}"
+          class="material-icons"
+          >info</i
+        >
+      </td>
+      <td>{{ video.date | date }}</td>
+      <td>
+        <span (click)="navigateToChannelPage(video.channelId)" class="link">{{
+          video.channelId
+        }}</span>
+      </td>
+      <td>{{ video.category }}</td>
+      <td>
+        <button
+          class="interact-video-button"
+          (click)="emitOpenUpdateModal(video)"
+        >
+          <i class="material-icons">edit</i>
+        </button>
+        <button
+          class="interact-video-button delete"
+          (click)="emitOpenDeleteModal(video)"
+        >
+          <i class="material-icons">delete</i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

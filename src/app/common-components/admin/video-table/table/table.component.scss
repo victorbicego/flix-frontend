@@ -1,0 +1,60 @@
+@import "../../../../../styles.scss";
+
+.table-container {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 10px 15px;
+    border-bottom: 1px solid $primary-grey;
+    text-align: left;
+    vertical-align: top;
+
+    &:nth-child(3),
+    &:nth-child(4),
+    &:nth-child(5),
+    &:last-child {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &:nth-child(2) {
+      text-align: center;
+      i {
+        font-size: $font-size-normal;
+        cursor: pointer;
+      }
+    }
+  }
+
+  th {
+    background-color: $secondary-dark;
+    font-weight: bold;
+    font-size: $font-size-small;
+  }
+
+  td {
+    font-size: $font-size-small;
+
+    .link {
+      cursor: pointer;
+    }
+  }
+
+  .interact-video-button {
+    color: $primary-light;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    i {
+      font-size: $font-size-normal;
+    }
+  }
+
+  .delete {
+    margin-left: 15px;
+  }
+}

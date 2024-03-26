@@ -1,0 +1,108 @@
+<div class="modal-container-out" *ngIf="userForm != null">
+  <div class="popup-container" [formGroup]="userForm">
+    <div class="title-container">
+      <h2>Create New User</h2>
+      <button class="close-button" (click)="closeModal()">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Name"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        type="text"
+        id="surname"
+        formControlName="surname"
+        placeholder="Surname"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        type="text"
+        id="username"
+        formControlName="username"
+        placeholder="Username"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        [type]="showPassword ? 'text' : 'password'"
+        id="password"
+        formControlName="password"
+        placeholder="Password"
+      />
+      <button
+        type="button"
+        class="show-pass-button"
+        (click)="togglePasswordVisibility()"
+      >
+        <i class="material-icons">{{
+          showPassword ? "visibility_off" : "visibility"
+        }}</i>
+      </button>
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        [type]="showRepeatPassword ? 'text' : 'password'"
+        id="repeatPassword"
+        formControlName="repeatPassword"
+        placeholder="Repeat Password"
+      />
+      <button
+        type="button"
+        class="show-pass-button"
+        (click)="toggleRepeatPasswordVisibility()"
+      >
+        <i class="material-icons">{{
+          showRepeatPassword ? "visibility_off" : "visibility"
+        }}</i>
+      </button>
+    </div>
+    <div class="form-group">
+      <select class="standard-input" id="role" formControlName="role">
+        <option value="" disabled selected>User Role</option>
+        <option value="ADMIN">Admin</option>
+        <option value="USER">User</option>
+      </select>
+    </div>
+    <div
+      class="error-message"
+      [ngClass]="{
+        show:
+          userForm.hasError('passwordsNotMatch') &&
+          (userForm.get('repeatPassword')?.dirty ||
+            userForm.get('repeatPassword')?.touched)
+      }"
+    >
+      Passwords do not match.
+    </div>
+    <div class="button-group">
+      <button
+        class="standard-button submit-button"
+        type="submit"
+        [disabled]="!userForm.valid"
+        (click)="createUser()"
+      >
+        Create
+      </button>
+      <button
+        class="standard-button cancel-button"
+        type="button"
+        (click)="closeModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="header-container">
+  <h1 class="logo" (click)="navigateToHome()">FLIX</h1>
+  <div class="search-container">
+    <input
+      type="text"
+      placeholder="Search..."
+      [(ngModel)]="searchTerm"
+      (keyup.enter)="onSearch()"
+      autocomplete="off"
+    />
+    <button *ngIf="searchTerm != ''" class="clear-button" (click)="clear()">
+      <i class="material-icons">clear</i>
+    </button>
+    <button class="search-button" (click)="onSearch()">
+      <i class="material-icons">search</i>
+    </button>
+  </div>
+  <h2 class="info-container">
+    <span
+      (click)="navigateToFeed()"
+      *ngIf="
+        storageService.getFeedToken() && storageService.getFeedToken() != ''
+      "
+      >F</span
+    >
+    <span
+      (click)="navigateToCore()"
+      *ngIf="
+        storageService.getCoreToken() && storageService.getCoreToken() != ''
+      "
+      >C</span
+    >
+    <i (click)="navigateToInfo()" class="material-icons">info</i>
+  </h2>
+</div>

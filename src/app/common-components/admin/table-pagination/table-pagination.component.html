@@ -1,0 +1,20 @@
+<div
+  *ngIf="currentPage != null && pageSize != null && list.length > 0"
+  class="pagination-container"
+>
+  <button (click)="emitPrevPage()" [disabled]="currentPage === 0">
+    <i class="material-icons">arrow_back</i>
+  </button>
+  <span>{{ currentPage + 1 }}</span>
+  <button (click)="emitNextPage()" [disabled]="list.length < pageSize">
+    <i class="material-icons">arrow_forward</i>
+  </button>
+  <div class="itens-per-page-dropdown">
+    <select id="pageSize" (change)="emitChangePageSize($event)">
+      <option *ngFor="let option of pageSizeOptions" [value]="option">
+        {{ option }}
+      </option>
+    </select>
+    <i class="material-icons">keyboard_arrow_down</i>
+  </div>
+</div>

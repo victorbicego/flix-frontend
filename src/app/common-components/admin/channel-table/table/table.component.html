@@ -1,0 +1,45 @@
+<table class="table-container">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Logo</th>
+      <th>Background</th>
+      <th>Youtube Tag</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="channelList.length > 0">
+    <tr *ngFor="let channel of channelList">
+      <td>{{ channel.id }}</td>
+      <td>
+        <span (click)="navigateToChannelPage(channel.id)" class="link">{{
+          channel.name
+        }}</span>
+      </td>
+      <td>
+        <img src="{{ channel.logoLink }}" alt="channel logo" />
+      </td>
+      <td>
+        <img src="{{ channel.backgroundLink }}" alt="channel backgorund" />
+      </td>
+      <td>
+        <a href="{{ channel.mainLink }}">{{ channel.tag }}</a>
+      </td>
+      <td>
+        <button
+          class="interact-video-button"
+          (click)="emitOpenUpdateModal(channel)"
+        >
+          <i class="material-icons">edit</i>
+        </button>
+        <button
+          class="interact-video-button delete"
+          (click)="emitOpenDeleteModal(channel)"
+        >
+          <i class="material-icons">delete</i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

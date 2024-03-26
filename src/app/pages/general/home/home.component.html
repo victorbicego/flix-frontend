@@ -1,0 +1,15 @@
+<div class="main-container">
+  <div class="info-container" *ngIf="!isLoading">
+    <app-category-selection
+      *ngIf="categoryList.length > 0"
+      [categoryList]="categoryList"
+      (changeCategory)="changeCategory()"
+    ></app-category-selection>
+
+    <app-search-result
+      [videoWithChannelList]="videoWithChannelList"
+    ></app-search-result>
+  </div>
+
+  <app-loading-icon [isLoading]="isLoading"></app-loading-icon>
+</div>

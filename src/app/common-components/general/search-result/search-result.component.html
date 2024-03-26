@@ -1,0 +1,40 @@
+<div class="result-container">
+  <div *ngIf="videoWithChannelList.length > 0" class="videos-container">
+    <div
+      class="single-video-container"
+      *ngFor="let videoWithChannel of videoWithChannelList"
+    >
+      <img
+        (click)="navigateToSingleVideo(videoWithChannel.video.id)"
+        [src]="
+          videoUtilsService.getYouTubeThumbnailUrl(videoWithChannel.video.link)
+        "
+        alt="video thumbnail"
+        class="thumbnail"
+      />
+      <div class="video-info-container">
+        <img
+          src="{{ videoWithChannel.channel.logoLink }}"
+          alt="channel logo"
+          (click)="navigateToChannelPage(videoWithChannel.channel.id)"
+        />
+        <div>
+          <p
+            (click)="navigateToSingleVideo(videoWithChannel.video.id)"
+            class="video-title"
+          >
+            {{ videoWithChannel.video.title }}
+          </p>
+          <p class="channel-name">
+            <span
+              (click)="navigateToChannelPage(videoWithChannel.channel.id)"
+              >{{ videoWithChannel.channel.name }}</span
+            >
+            &bull; {{ videoWithChannel.video.date | date }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="videoWithChannelList.length == 0">Not Found</div>
+</div>

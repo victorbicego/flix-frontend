@@ -1,0 +1,29 @@
+<div class="related-videos-container" *ngIf="recommendedVideos.length > 0">
+  <div *ngFor="let relatedVideo of recommendedVideos" class="related-video">
+    <img
+      [src]="videoUtilsService.getYouTubeThumbnailUrl(relatedVideo.video.link)"
+      alt="video thumbnail"
+      class="video-thumbnail"
+      (click)="navigateToSingleVideo(relatedVideo.video.id)"
+    />
+    <div class="video-info-container">
+      <p
+        (click)="navigateToSingleVideo(relatedVideo.video.id)"
+        class="video-title"
+      >
+        {{ relatedVideo.video.title }}
+      </p>
+      <div
+        class="channel-info"
+        (click)="navigateToChannel(relatedVideo.channel.id)"
+      >
+        <img
+          [src]="relatedVideo.channel.logoLink"
+          alt="Channel logo"
+          class="channel-logo"
+        />
+        <p class="channel-name">{{ relatedVideo.channel.name }}</p>
+      </div>
+    </div>
+  </div>
+</div>

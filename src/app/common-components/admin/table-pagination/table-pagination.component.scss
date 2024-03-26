@@ -1,0 +1,64 @@
+@import "../../../../styles.scss";
+
+.pagination-container {
+  font-size: $font-size-small;
+  display: flex;
+  align-items: center;
+
+  span {
+    margin: 0 10px;
+    padding: 0;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    color: $primary-light;
+    background-color: transparent;
+    border: none;
+    transition: background-color 0.3s;
+    cursor: pointer;
+
+    &:disabled {
+      color: $secondary-grey;
+    }
+
+    i {
+      font-size: 20px;
+    }
+  }
+
+  .itens-per-page-dropdown {
+    position: relative;
+
+    select {
+      font-size: $font-size-small;
+      margin-left: 10px;
+      padding: 5px 25px 5px 10px;
+      border-radius: 15px;
+      color: $primary-light;
+      background-color: $primary-dark;
+      border: 1px solid $primary-grey;
+      cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+
+      &:focus {
+        box-shadow: transparent;
+        outline: none;
+        border: 1px solid $primary-blue;
+      }
+    }
+
+    i {
+      font-size: 15px;
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: $primary-light;
+    }
+  }
+}

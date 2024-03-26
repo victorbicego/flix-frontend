@@ -1,0 +1,83 @@
+<div
+  class="modal-container-out"
+  *ngIf="videoForm != null && categoryList.length > 0"
+>
+  <div class="popup-container" [formGroup]="videoForm">
+    <div class="title-container">
+      <h2>Create New Video</h2>
+      <button class="close-button" (click)="closeModal()">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        type="text"
+        id="title"
+        formControlName="title"
+        placeholder="Title"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        type="text"
+        id="link"
+        formControlName="link"
+        placeholder="Video Link"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input input-date"
+        type="date"
+        id="date"
+        formControlName="date"
+        placeholder="Date"
+      />
+    </div>
+    <div class="form-group">
+      <textarea
+        class="standard-input"
+        type="de"
+        id="description"
+        formControlName="description"
+        placeholder="Desription"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <input
+        class="standard-input"
+        type="text"
+        id="channelId"
+        formControlName="channelId"
+        placeholder="Channel Id"
+      />
+    </div>
+    <div class="form-group">
+      <select class="standard-input" id="category" formControlName="category">
+        <option value="" disabled selected>Category</option>
+        <option *ngFor="let category of categoryList" [value]="category">
+          {{ category }}
+        </option>
+      </select>
+    </div>
+    <div class="button-group">
+      <button
+        class="standard-button submit-button"
+        type="submit"
+        [disabled]="!videoForm.valid"
+        (click)="createVideo()"
+      >
+        Create
+      </button>
+      <button
+        class="standard-button cancel-button"
+        type="button"
+        (click)="closeModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

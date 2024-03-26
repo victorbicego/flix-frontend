@@ -1,0 +1,47 @@
+<table class="table-container">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Account Non Expired</th>
+      <th>Non Locked</th>
+      <th>Credential Non Expired</th>
+      <th>Enabled</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="userList.length > 0">
+    <tr *ngFor="let user of userList">
+      <td>{{ user.username }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.surname }}</td>
+      <td>{{ user.accountNonExpired ? "Yes" : "No" }}</td>
+      <td>{{ user.accountNonLocked ? "Yes" : "No" }}</td>
+      <td>{{ user.credentialNonExpired ? "Yes" : "No" }}</td>
+      <td>{{ user.enabled ? "Yes" : "No" }}</td>
+      <td>{{ user.role }}</td>
+      <td>
+        <button
+          class="interact-user-button"
+          (click)="emitOpenUpdatePasswordModal(user)"
+        >
+          <i class="material-icons">key</i>
+        </button>
+        <button
+          class="interact-user-button edit"
+          (click)="emitOpenUpdateModal(user)"
+        >
+          <i class="material-icons">edit</i>
+        </button>
+        <button
+          class="interact-user-button delete"
+          (click)="emitOpenDeleteModal(user)"
+        >
+          <i class="material-icons">delete</i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

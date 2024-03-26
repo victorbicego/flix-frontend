@@ -1,0 +1,57 @@
+@import "../../../../styles.scss";
+
+.result-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
+  .videos-container {
+    display: contents;
+
+    .single-video-container {
+      .thumbnail {
+        width: 100%;
+        display: block;
+        border-radius: $border-radius;
+        aspect-ratio: 18 / 10;
+        object-fit: cover;
+        cursor: pointer;
+      }
+
+      .video-info-container {
+        display: flex;
+
+        img {
+          margin-top: 12px;
+          height: 32px;
+          width: 32px;
+          margin-right: 15px;
+          border-radius: $border-radius;
+          cursor: pointer;
+        }
+
+        .video-title {
+          margin-top: 10px;
+          font-size: $font-size-normal;
+          color: $primary-light;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          cursor: pointer;
+        }
+
+        .channel-name {
+          font-size: $font-size-small;
+          margin-top: 5px;
+          color: $secondary-grey;
+
+          span {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
