@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FeedHomeComponent } from './feed-home.component';
+import { UpdateVideoSyncComponent } from './update-video-sync.component';
 
-describe('FeedHomeComponent', () => {
-  let component: FeedHomeComponent;
-  let fixture: ComponentFixture<FeedHomeComponent>;
+describe('UpdateVideoSyncComponent', () => {
+  let component: UpdateVideoSyncComponent;
+  let fixture: ComponentFixture<UpdateVideoSyncComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FeedHomeComponent]
+      imports: [UpdateVideoSyncComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(FeedHomeComponent);
+    fixture = TestBed.createComponent(UpdateVideoSyncComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

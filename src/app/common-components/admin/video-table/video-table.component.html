@@ -10,7 +10,6 @@
 <div class="interaction-container">
   <button class="standard-button" (click)="openCreateModal()">Add Video</button>
   <app-table-pagination
-    *ngIf="videoList.length > 0"
     [currentPage]="currentPage"
     [pageSize]="pageSize"
     [list]="videoList"
@@ -24,16 +23,16 @@
   *ngIf="isCreateModalOpen"
   class="modal-container"
   (closePopUp)="closeCreateModal()"
-  [environment]="environment"
   [categoryList]="categoryList"
+  [channelList]="channelList"
 ></app-create-video>
 <app-update-video
   *ngIf="isUpdateModalOpen && videoToWork != null"
   class="modal-container"
   (closePopUp)="closeUpdateModal()"
   [videoToEdit]="videoToWork"
-  [environment]="environment"
   [categoryList]="categoryList"
+  [channelList]="channelList"
 ></app-update-video>
 <app-video-description
   *ngIf="isDescriptionModalOpen && videoToWork != null"
@@ -46,5 +45,4 @@
   class="modal-container"
   (closePopUp)="closeDeleteModal()"
   [videoToDelete]="videoToWork"
-  [environment]="environment"
 ></app-delete-video>

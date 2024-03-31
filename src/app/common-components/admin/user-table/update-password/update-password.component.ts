@@ -19,7 +19,6 @@ import { CommonModule } from '@angular/common';
 export class UpdatePasswordComponent {
   @Output() closePopUp: EventEmitter<void> = new EventEmitter<void>();
   @Input() userToEdit: User | null = null;
-  @Input() environment: string | null = null;
   userForm: FormGroup | null = null;
   showPassword: boolean = false;
   showRepeatPassword: boolean = false;
@@ -65,36 +64,9 @@ export class UpdatePasswordComponent {
   }
 
   public updatePassword(): void {
-    if (this.environment === 'core') {
-      this.updatePasswordUserCore();
-    }
-    if (this.environment === 'feed') {
-      this.updatePasswordUserFeed();
-    }
-  }
-
-  private updatePasswordUserCore(): void {
     if (this.userForm && this.userForm.valid) {
       this.adminUserService
-        .updateUserPasswordCore(this.userForm.value.id, this.userForm.value)
-        .subscribe({
-          next: (response: User) => {
-            console.log('User saved successfully with ID:', response.id);
-            this.closeModal();
-          },
-          error: (error) => {
-            console.error('Error occurred while saving user:', error);
-          },
-        });
-    } else {
-      console.error('Form is invalid. Cannot save user.');
-    }
-  }
-
-  private updatePasswordUserFeed(): void {
-    if (this.userForm && this.userForm.valid) {
-      this.adminUserService
-        .updateUserPasswordFeed(this.userForm.value.id, this.userForm.value)
+        .updateUserPassword(this.userForm.value.id, this.userForm.value)
         .subscribe({
           next: (response: User) => {
             console.log('User saved successfully with ID:', response.id);

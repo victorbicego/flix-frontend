@@ -18,7 +18,6 @@ import { AdminChannelService } from '../../../../services/admin/channel/admin-ch
 })
 export class UpdateChannelComponent {
   @Output() closePopUp: EventEmitter<void> = new EventEmitter<void>();
-  @Input() environment: string | null = null;
   @Input() channelToEdit: Channel | null = null;
   channelForm: FormGroup | null = null;
 
@@ -42,7 +41,6 @@ export class UpdateChannelComponent {
           this.channelToEdit.backgroundLink,
           [Validators.required],
         ],
-        tag: [this.channelToEdit.tag, [Validators.required]],
       });
     }
   }
@@ -52,22 +50,16 @@ export class UpdateChannelComponent {
   }
 
   public updateChannel(): void {
-    if (
-      this.environment === 'core' &&
-      this.channelForm &&
-      this.channelForm.valid
-    ) {
-      this.adminChannelService
-        .saveChannelCore(this.channelForm.value)
-        .subscribe({
-          next: (response: Channel) => {
-            console.log('Channel updated successfully with ID:', response.id);
-            this.closeModal();
-          },
-          error: (error) => {
-            console.error('Error occurred while updating channel:', error);
-          },
-        });
+    if (this.channelForm && this.channelForm.valid) {
+      this.adminChannelService.saveChannel(this.channelForm.value).subscribe({
+        next: (response: Channel) => {
+          console.log('Channel updated successfully with ID:', response.id);
+          this.closeModal();
+        },
+        error: (error) => {
+          console.error('Error occurred while updating channel:', error);
+        },
+      });
     } else {
       console.error('Form is invalid. Cannot update channel.');
     }

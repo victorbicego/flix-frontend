@@ -25,7 +25,6 @@ import { UpdatePasswordComponent } from './update-password/update-password.compo
   styleUrl: './user-table.component.scss',
 })
 export class UserTableComponent implements OnInit {
-  @Input() environment: string | null = null;
   userList: User[] = [];
   currentPage = 0;
   pageSize = 10;
@@ -45,29 +44,14 @@ export class UserTableComponent implements OnInit {
   }
 
   private getUsers(): void {
-    if (this.environment === 'core') {
-      this.adminUserService
-        .getUsersCore(this.currentPage, this.pageSize)
-        .subscribe({
-          next: (response: User[]) => {
-            this.userList = response;
-          },
-          error: (error) => {
-            console.error('Error fetching users from the backend', error);
-          },
-        });
-    } else if (this.environment === 'feed') {
-      this.adminUserService
-        .getUsersFeed(this.currentPage, this.pageSize)
-        .subscribe({
-          next: (response: User[]) => {
-            this.userList = response;
-          },
-          error: (error) => {
-            console.error('Error fetching users from the backend', error);
-          },
-        });
-    }
+    this.adminUserService.getUsers(this.currentPage, this.pageSize).subscribe({
+      next: (response: User[]) => {
+        this.userList = response;
+      },
+      error: (error) => {
+        console.error('Error fetching users from the backend', error);
+      },
+    });
   }
 
   public nextPage(): void {

@@ -18,7 +18,7 @@ export class VideoService {
     pageNumber: number
   ): Observable<VideoChannel[]> {
     let url =
-      environment.coreBaseUrl +
+      environment.baseUrl +
       '/video' +
       '?page=' +
       pageNumber +
@@ -39,14 +39,12 @@ export class VideoService {
   }
 
   public getSingleVideo(id: string): Observable<VideoChannel> {
-    return this.http.get<VideoChannel>(
-      environment.coreBaseUrl + '/video/' + id
-    );
+    return this.http.get<VideoChannel>(environment.baseUrl + '/video/' + id);
   }
 
   public getRelatedVideos(id: string): Observable<VideoChannel[]> {
     return this.http.get<VideoChannel[]>(
-      environment.coreBaseUrl + '/video/related/' + id
+      environment.baseUrl + '/video/related/' + id
     );
   }
 }

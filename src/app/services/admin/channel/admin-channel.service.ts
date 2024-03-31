@@ -14,55 +14,55 @@ export class AdminChannelService {
     private storageService: StorageService
   ) {}
 
-  private getCoreHeaders(): HttpHeaders {
+  private getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      Authorization: `Bearer ${this.storageService.getCoreToken()}`,
+      Authorization: `Bearer ${this.storageService.getToken()}`,
     });
   }
 
-  public getChannelsCore(page: number, size: number): Observable<Channel[]> {
+  public getChannels(page: number, size: number): Observable<Channel[]> {
     return this.http.get<Channel[]>(
-      `${environment.coreBaseUrl}/admin/channel/get?page=${page}&size=${size}`,
+      `${environment.baseUrl}/admin/channel/get?page=${page}&size=${size}`,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }
 
-  public getChannelByIdCore(id: string): Observable<Channel> {
+  public getChannelById(id: string): Observable<Channel> {
     return this.http.get<Channel>(
-      `${environment.coreBaseUrl}/admin/channel/get/${id}`,
+      `${environment.baseUrl}/admin/channel/get/${id}`,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }
 
-  public saveChannelCore(channel: Channel): Observable<Channel> {
+  public saveChannel(channel: Channel): Observable<Channel> {
     return this.http.post<Channel>(
-      `${environment.coreBaseUrl}/admin/channel/save`,
+      `${environment.baseUrl}/admin/channel/save`,
       channel,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }
 
-  public updateChannelCore(id: string, channel: Channel): Observable<Channel> {
+  public updateChannel(id: string, channel: Channel): Observable<Channel> {
     return this.http.put<Channel>(
-      `${environment.coreBaseUrl}/admin/channel/update/${id}`,
+      `${environment.baseUrl}/admin/channel/update/${id}`,
       channel,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }
 
-  public deleteChannelCore(id: string): Observable<void> {
+  public deleteChannel(id: string): Observable<void> {
     return this.http.delete<void>(
-      `${environment.coreBaseUrl}/admin/channel/delete/${id}`,
+      `${environment.baseUrl}/admin/channel/delete/${id}`,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }

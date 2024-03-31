@@ -5,6 +5,6 @@ export interface Video {
   date: Date;
   description: string;
   channelId: string;
-  isValidForCore: boolean;
   category: string;
+  duration: string;
 }

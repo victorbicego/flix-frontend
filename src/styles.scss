@@ -7,7 +7,7 @@ $primary-light: #f1f1f1;
 $primary-orange: #ff5f00;
 $primary-red: #b20600;
 
-$border-radius: 20px;
+$border-radius: 15px;
 $font-size-large: 18px;
 $font-size-normal: 16px;
 $font-size-small: 14px;
@@ -71,6 +71,11 @@ html {
   }
 }
 
+textarea {
+  font-family: "Roboto", sans-serif;
+  font-size: $font-size-small;
+}
+
 .modal-container {
   position: fixed;
   top: 0;
@@ -114,4 +119,14 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: $secondary-grey;
+}
+
+.description-link {
+  font-size: $font-size-small;
+  color: $primary-blue;
+  text-decoration: none;
+
+  &:visited {
+    color: $primary-blue;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { VideoChannel } from '../../../interfaces/general/video-channel';
 import { VideoService } from '../../../services/general/video/video.service';
 import { CategoryService } from '../../../services/general/category/category.service';
@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { CategorySelectionComponent } from '../../../common-components/general/category-selection/category-selection.component';
 import { LoadingIconComponent } from '../../../common-components/general/loading-icon/loading-icon.component';
 import { SearchResultComponent } from '../../../common-components/general/search-result/search-result.component';
+import { ChannelsSliderComponent } from '../../../common-components/general/channels-slider/channels-slider.component';
 
 @Component({
   selector: 'app-home',
@@ -17,14 +18,18 @@ import { SearchResultComponent } from '../../../common-components/general/search
     CategorySelectionComponent,
     LoadingIconComponent,
     SearchResultComponent,
+    ChannelsSliderComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   isLoading: boolean = true;
   videoWithChannelList: VideoChannel[] = [];
   categoryList: string[] = [];
+  pageNumber: number = 0;
+  isPageEnd: boolean = false;
+  changedCategory: boolean = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,6 +40,9 @@ export class HomeComponent {
   ) {}
 
   ngOnInit(): void {
+    this.changedCategory = true;
+    this.pageNumber = 0;
+    this.isPageEnd = false;
     this.getCategoryList();
     this.activatedRoute.queryParams.subscribe((queryParams) => {
       this.searchHelperService.setSearch(queryParams['search']);
@@ -55,13 +63,20 @@ export class HomeComponent {
         this.searchHelperService.getChannel(),
         this.searchHelperService.getCategory(),
         this.searchHelperService.getSearch(),
-        10,
-        0
+        16,
+        this.pageNumber
       )
       .subscribe({
         next: (response: VideoChannel[]) => {
-          this.videoWithChannelList = response;
+          if (this.changedCategory) {
+            this.videoWithChannelList = response;
+          } else if (!this.changedCategory) {
+            this.videoWithChannelList.push(...response);
+          }
           this.isLoading = false;
+          if (response.length < 16) {
+            this.isPageEnd = true;
+          }
         },
         error: (error) => {
           this.isLoading = false;
@@ -85,8 +100,37 @@ export class HomeComponent {
     const category: string = this.searchHelperService.getCategory();
     const search: String = this.searchHelperService.getSearch();
 
+    this.changedCategory = true;
+    this.pageNumber = 0;
+    this.isPageEnd = false;
     this.router.navigate(['/home'], {
       queryParams: { category: category, search: search },
     });
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(): void {
+    const windowHeight =
+      'innerHeight' in window
+        ? window.innerHeight
+        : document.documentElement.offsetHeight;
+    const body = document.body;
+    const html = document.documentElement;
+    const docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    );
+    const windowBottom = windowHeight + window.pageYOffset;
+    if (windowBottom >= docHeight && !this.isLoading && !this.isPageEnd) {
+      this.changedCategory = false;
+      this.isLoading = true;
+      setTimeout(() => {
+        this.pageNumber++;
+        this.getVideos();
+      }, 500);
+    }
   }
 }

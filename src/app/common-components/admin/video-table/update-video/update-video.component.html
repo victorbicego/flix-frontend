@@ -46,12 +46,40 @@
       ></textarea>
     </div>
     <div class="form-group">
+      <select class="standard-input" id="channelId" formControlName="channelId">
+        <option value="" disabled selected>Channel Id</option>
+        <option *ngFor="let channel of channelList" [value]="channel.id">
+          {{ channel.id }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
       <input
-        class="standard-input"
-        type="text"
-        id="channelId"
-        formControlName="channelId"
-        placeholder="Channel Id"
+        class="standard-input hour"
+        type="number"
+        id="durationHours"
+        formControlName="durationHours"
+        placeholder="Hours"
+      />
+      <span>:</span>
+      <input
+        class="standard-input minute"
+        type="number"
+        max="60"
+        id="durationMinutes"
+        formControlName="durationMinutes"
+        placeholder="Minutes"
+        (input)="onDurationMinutesInput($event)"
+      />
+      <span>:</span>
+      <input
+        class="standard-input second"
+        type="number"
+        max="60"
+        id="durationSeconds"
+        formControlName="durationSeconds"
+        placeholder="Seconds"
+        (input)="onDurationSecondsInput($event)"
       />
     </div>
     <div class="form-group">

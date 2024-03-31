@@ -1,17 +1,17 @@
 <div class="main-container">
-  <div class="info-container" *ngIf="!isLoading">
-    <app-category-selection
-      *ngIf="categoryList.length > 0"
-      [categoryList]="categoryList"
-      (changeCategory)="changeCategory()"
-    ></app-category-selection>
-
+  <div class="info-container">
     <img
       *ngIf="channel != null"
       class="channel-background"
       src="{{ channel.backgroundLink }}"
       alt="channel background"
     />
+
+    <app-category-selection
+      *ngIf="categoryList.length > 0"
+      [categoryList]="categoryList"
+      (changeCategory)="changeCategory()"
+    ></app-category-selection>
 
     <app-search-result
       [videoWithChannelList]="videoWithChannelList"

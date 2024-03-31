@@ -32,37 +32,14 @@ export class HeaderComponent {
   }
 
   public clear(): void {
-    this.navigateToHome();
-  }
-
-  private clearAllFields(): void {
-    this.searchTerm = '';
-    this.searchHelperService.setCategory('');
-    this.searchHelperService.setSearch('');
-    this.searchHelperService.setChannel('');
-  }
-
-  public navigateToHome(): void {
     this.clearAllFields();
     this.router.navigate(['/home']);
   }
 
-  public navigateToInfo(): void {
-    this.clearAllFields();
-    this.router.navigate(['/info']);
-  }
-
-  public navigateToFeed(): void {
-    this.clearAllFields();
-    this.router.navigate(['/admin/feed'], {
-      queryParams: { table: 'info' },
-    });
-  }
-
-  public navigateToCore(): void {
-    this.clearAllFields();
-    this.router.navigate(['/admin/core'], {
-      queryParams: { table: 'info' },
-    });
+  public clearAllFields(): void {
+    this.searchTerm = '';
+    this.searchHelperService.setCategory('');
+    this.searchHelperService.setSearch('');
+    this.searchHelperService.setChannel('');
   }
 }

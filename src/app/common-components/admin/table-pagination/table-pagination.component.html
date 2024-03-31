@@ -1,12 +1,12 @@
 <div
-  *ngIf="currentPage != null && pageSize != null && list.length > 0"
+  *ngIf="currentPage != null && pageSize != null"
   class="pagination-container"
 >
   <button (click)="emitPrevPage()" [disabled]="currentPage === 0">
     <i class="material-icons">arrow_back</i>
   </button>
   <span>{{ currentPage + 1 }}</span>
-  <button (click)="emitNextPage()" [disabled]="list.length < pageSize">
+  <button (click)="emitNextPage()" [disabled]="list.length == 0">
     <i class="material-icons">arrow_forward</i>
   </button>
   <div class="itens-per-page-dropdown">

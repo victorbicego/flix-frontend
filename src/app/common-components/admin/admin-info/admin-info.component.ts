@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './admin-info.component.scss',
 })
 export class AdminInfoComponent implements OnInit {
-  @Input() environment: string | null = null;
   user: User | null = null;
 
   constructor(
@@ -27,45 +26,23 @@ export class AdminInfoComponent implements OnInit {
   }
 
   private getUserInfo(): void {
-    if (this.environment === 'core') {
-      this.adminUserService.getUserInfoCore().subscribe({
-        next: (response: User) => {
-          this.user = response;
-        },
-        error: (error) => {
-          if (error.status == 403) {
-            this.storageService.clearCoreData();
-            this.router.navigate(['/admin/login']);
-            console.error('Error fetching user from the backend', error);
-          }
+    this.adminUserService.getUserInfo().subscribe({
+      next: (response: User) => {
+        this.user = response;
+      },
+      error: (error) => {
+        if (error.status == 403) {
+          this.storageService.clearData();
+          this.router.navigate(['/admin/login']);
           console.error('Error fetching user from the backend', error);
-        },
-      });
-    } else if (this.environment === 'feed') {
-      this.adminUserService.getUserInfoFeed().subscribe({
-        next: (response: User) => {
-          this.user = response;
-        },
-        error: (error) => {
-          if (error.status == 403) {
-            this.storageService.clearFeedData();
-            this.router.navigate(['/admin/login']);
-            console.error('Error fetching user from the backend', error);
-          }
-          console.error('Error fetching user from the backend', error);
-        },
-      });
-    }
+        }
+        console.error('Error fetching user from the backend', error);
+      },
+    });
   }
 
   public logout(): void {
-    if (this.environment) {
-      if (this.environment === 'core') {
-        this.storageService.clearFeedData();
-      } else if (this.environment === 'feed') {
-        this.storageService.clearFeedData();
-      }
-      this.router.navigate(['/admin/login']);
-    }
+    this.storageService.clearData();
+    this.router.navigate(['/admin/login']);
   }
 }

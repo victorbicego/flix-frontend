@@ -15,147 +15,72 @@ export class AdminUserService {
     private storageService: StorageService
   ) {}
 
-  private getCoreHeaders(): HttpHeaders {
+  private getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      Authorization: `Bearer ${this.storageService.getCoreToken()}`,
+      Authorization: `Bearer ${this.storageService.getToken()}`,
     });
   }
 
-  private getFeedHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      Authorization: `Bearer ${this.storageService.getFeedToken()}`,
+  public getUsers(page: number, size: number): Observable<User[]> {
+    return this.http.get<User[]>(
+      `${environment.baseUrl}/admin/user/get?page=${page}&size=${size}`,
+      {
+        headers: this.getHeaders(),
+      }
+    );
+  }
+
+  public getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`${environment.baseUrl}/admin/user/get/${id}`, {
+      headers: this.getHeaders(),
     });
   }
 
-  public getUsersCore(page: number, size: number): Observable<User[]> {
-    return this.http.get<User[]>(
-      `${environment.coreBaseUrl}/admin/user/get?page=${page}&size=${size}`,
-      {
-        headers: this.getCoreHeaders(),
-      }
-    );
-  }
-
-  public getUsersFeed(page: number, size: number): Observable<User[]> {
-    return this.http.get<User[]>(
-      `${environment.feedBaseUrl}/admin/user/get?page=${page}&size=${size}`,
-      {
-        headers: this.getFeedHeaders(),
-      }
-    );
-  }
-
-  public getUserByIdCore(id: string): Observable<User> {
-    return this.http.get<User>(
-      `${environment.coreBaseUrl}/admin/user/get/${id}`,
-      {
-        headers: this.getCoreHeaders(),
-      }
-    );
-  }
-
-  public getUserByIdFeed(id: string): Observable<User> {
-    return this.http.get<User>(
-      `${environment.feedBaseUrl}/admin/user/get/${id}`,
-      {
-        headers: this.getFeedHeaders(),
-      }
-    );
-  }
-
-  public saveUserCore(user: User): Observable<User> {
+  public saveUser(user: User): Observable<User> {
     return this.http.post<User>(
-      `${environment.coreBaseUrl}/admin/user/save`,
+      `${environment.baseUrl}/admin/user/save`,
       user,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }
 
-  public saveUserFeed(user: User): Observable<User> {
-    return this.http.post<User>(
-      `${environment.feedBaseUrl}/admin/user/save`,
-      user,
-      {
-        headers: this.getFeedHeaders(),
-      }
-    );
-  }
-
-  public updateUserCore(id: string, user: User): Observable<User> {
+  public updateUser(id: string, user: User): Observable<User> {
     return this.http.put<User>(
-      `${environment.coreBaseUrl}/admin/user/update/${id}`,
+      `${environment.baseUrl}/admin/user/update/${id}`,
       user,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }
 
-  public updateUserFeed(id: string, user: User): Observable<User> {
-    return this.http.put<User>(
-      `${environment.feedBaseUrl}/admin/user/update/${id}`,
-      user,
-      {
-        headers: this.getFeedHeaders(),
-      }
-    );
-  }
-
-  public updateUserPasswordCore(
+  public updateUserPassword(
     id: string,
     password: ChangePassword
   ): Observable<User> {
     return this.http.put<User>(
-      `${environment.coreBaseUrl}/admin/user/update-password/${id}`,
+      `${environment.baseUrl}/admin/user/update-password/${id}`,
       password,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }
 
-  public updateUserPasswordFeed(
-    id: string,
-    password: ChangePassword
-  ): Observable<User> {
-    return this.http.put<User>(
-      `${environment.feedBaseUrl}/admin/user/update-password/${id}`,
-      password,
-      {
-        headers: this.getFeedHeaders(),
-      }
-    );
-  }
-
-  public deleteUserCore(id: string): Observable<void> {
+  public deleteUser(id: string): Observable<void> {
     return this.http.delete<void>(
-      `${environment.coreBaseUrl}/admin/user/delete/${id}`,
+      `${environment.baseUrl}/admin/user/delete/${id}`,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }
 
-  public deleteUserFeed(id: string): Observable<void> {
-    return this.http.delete<void>(
-      `${environment.feedBaseUrl}/admin/user/delete/${id}`,
-      {
-        headers: this.getFeedHeaders(),
-      }
-    );
-  }
-
-  public getUserInfoCore(): Observable<User> {
-    return this.http.get<User>(`${environment.coreBaseUrl}/user/get`, {
-      headers: this.getCoreHeaders(),
-    });
-  }
-
-  public getUserInfoFeed(): Observable<User> {
-    return this.http.get<User>(`${environment.feedBaseUrl}/user/get`, {
-      headers: this.getFeedHeaders(),
+  public getUserInfo(): Observable<User> {
+    return this.http.get<User>(`${environment.baseUrl}/user/get`, {
+      headers: this.getHeaders(),
     });
   }
 }

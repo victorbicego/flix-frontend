@@ -13,7 +13,6 @@ import { AdminChannelService } from '../../../../services/admin/channel/admin-ch
 export class DeleteChannelComponent {
   @Output() closePopUp: EventEmitter<void> = new EventEmitter<void>();
   @Input() channelToDelete: Channel | null = null;
-  @Input() environment: string | null = null;
 
   constructor(private adminChannelService: AdminChannelService) {}
 
@@ -24,7 +23,7 @@ export class DeleteChannelComponent {
   public deleteChannel(): void {
     if (this.channelToDelete) {
       this.adminChannelService
-        .deleteChannelCore(this.channelToDelete.id!)
+        .deleteChannel(this.channelToDelete.id!)
         .subscribe({
           next: () => {
             console.log(

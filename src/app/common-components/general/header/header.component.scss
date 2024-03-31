@@ -10,7 +10,15 @@
     width: 75px;
     font-size: 30px;
     font-weight: bold;
-    cursor: pointer;
+
+    a {
+      color: $primary-light;
+      text-decoration: none;
+
+      &:visited {
+        color: $primary-light;
+      }
+    }
   }
 
   .info-container {
@@ -19,13 +27,24 @@
     align-items: center;
     justify-content: flex-end;
 
-    span {
-      cursor: pointer;
+    a {
+      color: $primary-light;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &:visited {
+        color: $primary-light;
+      }
+    }
+
+    .admin-link {
       margin-right: 15px;
     }
 
     i {
-      font-size: 25px;
       cursor: pointer;
     }
   }

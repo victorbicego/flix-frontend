@@ -1,5 +1,5 @@
 <div class="header-container">
-  <h1 class="logo" (click)="navigateToHome()">FLIX</h1>
+  <h1 class="logo"><a (click)="clearAllFields()" href="/home">FLIX</a></h1>
   <div class="search-container">
     <input
       type="text"
@@ -16,20 +16,16 @@
     </button>
   </div>
   <h2 class="info-container">
-    <span
-      (click)="navigateToFeed()"
-      *ngIf="
-        storageService.getFeedToken() && storageService.getFeedToken() != ''
-      "
-      >F</span
+    <a
+      class="admin-link"
+      href="/admin/home?table=info"
+      (click)="clearAllFields()"
+      *ngIf="storageService.getToken() && storageService.getToken() != ''"
     >
-    <span
-      (click)="navigateToCore()"
-      *ngIf="
-        storageService.getCoreToken() && storageService.getCoreToken() != ''
-      "
-      >C</span
+      A</a
     >
-    <i (click)="navigateToInfo()" class="material-icons">info</i>
+    <a (click)="clearAllFields()" href="/info"
+      ><i class="material-icons">info</i></a
+    >
   </h2>
 </div>

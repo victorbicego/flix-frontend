@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
 export class DeleteUserComponent {
   @Output() closePopUp: EventEmitter<void> = new EventEmitter<void>();
   @Input() userToDelete: User | null = null;
-  @Input() environment: string | null = null;
 
   constructor(private adminUserService: AdminUserService) {}
 
@@ -22,34 +21,8 @@ export class DeleteUserComponent {
   }
 
   public deleteUser(): void {
-    if (this.environment === 'core') {
-      this.deleteUserCore();
-    }
-    if (this.environment === 'feed') {
-      this.deleteUserFeed();
-    }
-  }
-
-  private deleteUserFeed(): void {
     if (this.userToDelete) {
-      this.adminUserService.deleteUserFeed(this.userToDelete.id!).subscribe({
-        next: () => {
-          console.log(
-            'User delete successfully with ID:',
-            this.userToDelete!.id
-          );
-          this.closeModal();
-        },
-        error: (error) => {
-          console.error('Error occurred while deleting user:', error);
-        },
-      });
-    }
-  }
-
-  private deleteUserCore(): void {
-    if (this.userToDelete) {
-      this.adminUserService.deleteUserCore(this.userToDelete.id!).subscribe({
+      this.adminUserService.deleteUser(this.userToDelete.id!).subscribe({
         next: () => {
           console.log(
             'User delete successfully with ID:',

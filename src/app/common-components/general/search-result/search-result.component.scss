@@ -3,19 +3,32 @@
 .result-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 25px;
 
   .videos-container {
     display: contents;
 
     .single-video-container {
-      .thumbnail {
-        width: 100%;
-        display: block;
-        border-radius: $border-radius;
-        aspect-ratio: 18 / 10;
-        object-fit: cover;
-        cursor: pointer;
+      .thumbnail-container {
+        position: relative;
+        .thumbnail {
+          width: 100%;
+          display: block;
+          border-radius: $border-radius;
+          aspect-ratio: 18 / 10;
+          object-fit: cover;
+          cursor: pointer;
+        }
+
+        .duration {
+          background-color: $primary-dark;
+          border-radius: 5px;
+          padding: 2px 3px;
+          position: absolute;
+          right: 7px;
+          bottom: 5px;
+          font-size: 12px;
+        }
       }
 
       .video-info-container {

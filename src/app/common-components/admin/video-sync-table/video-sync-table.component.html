@@ -1,0 +1,46 @@
+<app-table
+  class="table-container"
+  (openUpdateModal)="openUpdateModal($event)"
+  (openDeleteModal)="openDeleteModal($event)"
+  (openDescriptionModal)="openDescriptionModal($event)"
+  [videoList]="videoList"
+>
+</app-table>
+
+<div class="interaction-container">
+  <button class="standard-button" (click)="openCreateModal()">
+    Sync Videos
+  </button>
+  <app-table-pagination
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    [list]="videoList"
+    (nextPage)="nextPage()"
+    (prevPage)="prevPage()"
+    (changePageSize)="changePageSize($event)"
+  ></app-table-pagination>
+</div>
+
+<app-sync-loading
+  *ngIf="isSyncInProcess"
+  class="modal-container"
+></app-sync-loading>
+<app-update-video-sync
+  *ngIf="isUpdateModalOpen && videoToWork != null"
+  class="modal-container"
+  (closePopUp)="closeUpdateModal()"
+  [videoToEdit]="videoToWork"
+  [categoryList]="categoryList"
+></app-update-video-sync>
+<app-video-sync-description
+  *ngIf="isDescriptionModalOpen && videoToWork != null"
+  class="modal-container"
+  (closePopUp)="closeDescriptionModal()"
+  [video]="videoToWork"
+></app-video-sync-description>
+<app-delete-video-sync
+  *ngIf="isDeleteModalOpen && videoToWork != null"
+  class="modal-container"
+  (closePopUp)="closeDeleteModal()"
+  [videoToDelete]="videoToWork"
+></app-delete-video-sync>

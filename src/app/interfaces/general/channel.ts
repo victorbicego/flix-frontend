@@ -4,5 +4,4 @@ export interface Channel {
   mainLink: string;
   logoLink: string;
   backgroundLink: string;
-  tag: string;
 }

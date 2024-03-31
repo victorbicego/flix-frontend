@@ -13,7 +13,6 @@ import { AdminVideoService } from '../../../../services/admin/video/admin-video.
 export class DeleteVideoComponent {
   @Output() closePopUp: EventEmitter<void> = new EventEmitter<void>();
   @Input() videoToDelete: Video | null = null;
-  @Input() environment: string | null = null;
 
   constructor(private adminVideoService: AdminVideoService) {}
 
@@ -22,34 +21,8 @@ export class DeleteVideoComponent {
   }
 
   public deleteVideo(): void {
-    if (this.environment === 'core') {
-      this.deleteVideoCore();
-    }
-    if (this.environment === 'feed') {
-      this.deleteVideoFeed();
-    }
-  }
-
-  private deleteVideoFeed(): void {
-    if (this.videoToDelete) {
-      this.adminVideoService.deleteVideoFeed(this.videoToDelete.id!).subscribe({
-        next: () => {
-          console.log(
-            'Video delete successfully with ID:',
-            this.videoToDelete!.id
-          );
-          this.closeModal();
-        },
-        error: (error) => {
-          console.error('Error occurred while deleting video:', error);
-        },
-      });
-    }
-  }
-
-  private deleteVideoCore(): void {
-    if (this.videoToDelete) {
-      this.adminVideoService.deleteVideoCore(this.videoToDelete.id!).subscribe({
+    if (this.videoToDelete != null) {
+      this.adminVideoService.deleteVideo(this.videoToDelete.id!).subscribe({
         next: () => {
           console.log(
             'Video delete successfully with ID:',

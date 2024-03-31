@@ -1,0 +1,35 @@
+<div class="result-container" *ngIf="this.channelList.length > 0">
+  <button class="prev-btn" (click)="prev()">
+    <i class="material-icons">keyboard_arrow_left</i>
+  </button>
+  <div
+    *ngIf="channelList.length > 0"
+    class="channels-container"
+    [ngClass]="{ transitioningLeft: transitioningLeft }"
+    [ngClass]="{ transitioningRight: transitioningRight }"
+  >
+    <div
+      *ngFor="let videoWithChannel of visibleChannels; let i = index"
+      [ngClass]="{ first: i === 0, last: i === 8 }"
+      class="single-channel-container"
+    >
+      <div>
+        <img
+          (click)="navigateToChannelPage(videoWithChannel.id)"
+          [src]="videoWithChannel.logoLink"
+          alt="channel logo"
+          class="channel-logo"
+        />
+        <p
+          (click)="navigateToChannelPage(videoWithChannel.id)"
+          class="channel-title"
+        >
+          {{ videoWithChannel.name }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <button class="next-btn" (click)="next()">
+    <i class="material-icons">keyboard_arrow_right</i>
+  </button>
+</div>

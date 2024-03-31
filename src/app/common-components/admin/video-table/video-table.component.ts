@@ -9,6 +9,8 @@ import { CreateVideoComponent } from './create-video/create-video.component';
 import { CategoryService } from '../../../services/general/category/category.service';
 import { UpdateVideoComponent } from './update-video/update-video.component';
 import { VideoDescriptionComponent } from './video-description/video-description.component';
+import { Channel } from '../../../interfaces/general/channel';
+import { ChannelService } from '../../../services/general/channel/channel.service';
 
 @Component({
   selector: 'app-video-table',
@@ -26,7 +28,6 @@ import { VideoDescriptionComponent } from './video-description/video-description
   styleUrl: './video-table.component.scss',
 })
 export class VideoTableComponent implements OnInit {
-  @Input() environment: string | null = null;
   videoList: Video[] = [];
   currentPage = 0;
   pageSize = 10;
@@ -36,16 +37,30 @@ export class VideoTableComponent implements OnInit {
   isDescriptionModalOpen = false;
   videoToWork: Video | null = null;
   categoryList: string[] = [];
+  channelList: Channel[] = [];
 
   constructor(
     private adminVideoService: AdminVideoService,
     private categoryService: CategoryService,
+    private channelService: ChannelService,
     private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
     this.getCategoryList();
+    this.getChannelList();
     this.getVideos();
+  }
+
+  private getChannelList(): void {
+    this.channelService.getAllChannels().subscribe({
+      next: (response: Channel[]) => {
+        this.channelList = response;
+      },
+      error: (error) => {
+        console.error('Error fetching channels from the backend', error);
+      },
+    });
   }
 
   private getCategoryList(): void {
@@ -63,29 +78,16 @@ export class VideoTableComponent implements OnInit {
   }
 
   private getVideos(): void {
-    if (this.environment === 'core') {
-      this.adminVideoService
-        .getVideosCore(this.currentPage, this.pageSize)
-        .subscribe({
-          next: (response: Video[]) => {
-            this.videoList = response;
-          },
-          error: (error) => {
-            console.error('Error fetching users from the backend', error);
-          },
-        });
-    } else if (this.environment === 'feed') {
-      this.adminVideoService
-        .getVideosFeed(this.currentPage, this.pageSize)
-        .subscribe({
-          next: (response: Video[]) => {
-            this.videoList = response;
-          },
-          error: (error) => {
-            console.error('Error fetching users from the backend', error);
-          },
-        });
-    }
+    this.adminVideoService
+      .getVideos(this.currentPage, this.pageSize)
+      .subscribe({
+        next: (response: Video[]) => {
+          this.videoList = response;
+        },
+        error: (error) => {
+          console.error('Error fetching users from the backend', error);
+        },
+      });
   }
 
   public nextPage(): void {

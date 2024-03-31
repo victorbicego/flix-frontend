@@ -1,0 +1,63 @@
+@import "../../../../styles.scss";
+
+.result-container {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  .channels-container {
+    width: 100%;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 20px;
+
+    .single-channel-container {
+      cursor: pointer;
+
+      .channel-logo {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .channel-title {
+        text-align: center;
+        margin-top: 10px;
+        font-size: $font-size-small;
+        color: $primary-light;
+      }
+    }
+  }
+
+  .transitioningRight {
+    transition: all 0.5s ease-in-out;
+    transform: translateX(14.2%);
+  }
+
+  .transitioningLeft {
+    transition: all 0.5s ease-in-out;
+    transform: translateX(-14.2%);
+  }
+
+  .prev-btn,
+  .next-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: $primary-light;
+    padding: 0;
+
+    i {
+      font-size: 70px;
+    }
+  }
+
+  .prev-btn {
+    margin-left: -16px;
+  }
+
+  .next-btn {
+    margin-right: -16px;
+  }
+}

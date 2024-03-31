@@ -15,108 +15,55 @@ export class AdminVideoService {
     private storageService: StorageService
   ) {}
 
-  private getCoreHeaders(): HttpHeaders {
+  private getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      Authorization: `Bearer ${this.storageService.getCoreToken()}`,
+      Authorization: `Bearer ${this.storageService.getToken()}`,
     });
   }
 
-  private getFeedHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      Authorization: `Bearer ${this.storageService.getFeedToken()}`,
-    });
-  }
-
-  public getVideosCore(page: number, size: number): Observable<Video[]> {
+  public getVideos(page: number, size: number): Observable<Video[]> {
     return this.http.get<Video[]>(
-      `${environment.coreBaseUrl}/admin/video/get?page=${page}&size=${size}`,
+      `${environment.baseUrl}/admin/video/get?page=${page}&size=${size}`,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }
 
-  public getVideosFeed(page: number, size: number): Observable<Video[]> {
-    return this.http.get<Video[]>(
-      `${environment.feedBaseUrl}/admin/video/get?page=${page}&size=${size}`,
-      {
-        headers: this.getFeedHeaders(),
-      }
-    );
-  }
-
-  public getVideoByIdCore(id: string): Observable<Video> {
+  public getVideoById(id: string): Observable<Video> {
     return this.http.get<Video>(
-      `${environment.coreBaseUrl}/admin/video/get/${id}`,
+      `${environment.baseUrl}/admin/video/get/${id}`,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }
 
-  public getVideoByIdFeed(id: string): Observable<Video> {
-    return this.http.get<Video>(
-      `${environment.feedBaseUrl}/admin/video/get/${id}`,
-      {
-        headers: this.getFeedHeaders(),
-      }
-    );
-  }
-
-  public saveVideoCore(video: Video): Observable<Video> {
+  public saveVideo(video: Video): Observable<Video> {
     return this.http.post<Video>(
-      `${environment.coreBaseUrl}/admin/video/save`,
+      `${environment.baseUrl}/admin/video/save`,
       video,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }
 
-  public saveVideoFeed(video: VideoChannel): Observable<Video> {
-    return this.http.post<Video>(
-      `${environment.feedBaseUrl}/admin/video/save`,
-      video,
-      {
-        headers: this.getFeedHeaders(),
-      }
-    );
-  }
-
-  public updateVideoCore(id: string, video: Video): Observable<Video> {
+  public updateVideo(id: string, video: Video): Observable<Video> {
     return this.http.put<Video>(
-      `${environment.coreBaseUrl}/admin/video/update/${id}`,
+      `${environment.baseUrl}/admin/video/update/${id}`,
       video,
       {
-        headers: this.getCoreHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }
 
-  public updateVideoFeed(id: string, video: Video): Observable<Video> {
-    return this.http.put<Video>(
-      `${environment.feedBaseUrl}/admin/video/update/${id}`,
-      video,
-      {
-        headers: this.getFeedHeaders(),
-      }
-    );
-  }
-
-  public deleteVideoCore(id: string): Observable<void> {
+  public deleteVideo(id: string): Observable<void> {
     return this.http.delete<void>(
-      `${environment.coreBaseUrl}/admin/video/delete/${id}`,
+      `${environment.baseUrl}/admin/video/delete/${id}`,
       {
-        headers: this.getCoreHeaders(),
-      }
-    );
-  }
-
-  public deleteVideoFeed(id: string): Observable<void> {
-    return this.http.delete<void>(
-      `${environment.feedBaseUrl}/admin/video/delete/${id}`,
-      {
-        headers: this.getFeedHeaders(),
+        headers: this.getHeaders(),
       }
     );
   }

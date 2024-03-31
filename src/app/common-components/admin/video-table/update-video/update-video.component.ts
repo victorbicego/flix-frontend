@@ -8,6 +8,7 @@ import {
 import { Video } from '../../../../interfaces/general/video';
 import { AdminVideoService } from '../../../../services/admin/video/admin-video.service';
 import { CommonModule } from '@angular/common';
+import { Channel } from '../../../../interfaces/general/channel';
 
 @Component({
   selector: 'app-update-video',
@@ -18,8 +19,8 @@ import { CommonModule } from '@angular/common';
 })
 export class UpdateVideoComponent {
   @Output() closePopUp: EventEmitter<void> = new EventEmitter<void>();
-  @Input() environment: string | null = null;
   @Input() categoryList: string[] = [];
+  @Input() channelList: Channel[] = [];
   @Input() videoToEdit: Video | null = null;
   videoForm: FormGroup | null = null;
 
@@ -34,6 +35,28 @@ export class UpdateVideoComponent {
 
   private initForm(): void {
     if (this.videoToEdit) {
+      let hours = 0;
+      let minutes = 0;
+      let seconds = 0;
+
+      if (this.videoToEdit.duration) {
+        const matchHour = this.videoToEdit!.duration!.match(/(\d+H)/)!;
+        const matchMinute = this.videoToEdit!.duration!.match(/(\d+M)/)!;
+        const matchSecond =
+          this.videoToEdit!.duration!.match(/(\d+(?:\.\d+)?)S/)!;
+        if (matchHour) {
+          hours = parseInt(matchHour[1], 10);
+        }
+
+        if (matchMinute) {
+          minutes = parseInt(matchMinute[1], 10);
+        }
+
+        if (matchSecond) {
+          seconds = parseInt(matchSecond[1], 10);
+        }
+      }
+
       this.videoForm = this.formBuilder.group({
         id: [this.videoToEdit.id],
         title: [this.videoToEdit.title, [Validators.required]],
@@ -42,6 +65,10 @@ export class UpdateVideoComponent {
         description: [this.videoToEdit.description, [Validators.required]],
         channelId: [this.videoToEdit.channelId, [Validators.required]],
         category: [this.videoToEdit.category, [Validators.required]],
+        durationHours: [hours],
+        durationMinutes: [minutes, [Validators.min(0), Validators.max(60)]],
+        durationSeconds: [seconds, [Validators.min(0), Validators.max(60)]],
+        duration: [],
       });
     }
   }
@@ -51,18 +78,22 @@ export class UpdateVideoComponent {
   }
 
   public updateVideo(): void {
-    if (this.environment === 'core') {
-      this.updateVideoCore();
-    }
-    if (this.environment === 'feed') {
-      this.updateVideoFeed();
-    }
-  }
-
-  private updateVideoCore(): void {
     if (this.videoForm && this.videoForm.valid) {
+      const hours = this.videoForm.get('durationHours')?.value || '0';
+      const minutes = this.videoForm.get('durationMinutes')?.value || '0';
+      const seconds = this.videoForm.get('durationSeconds')?.value || '0';
+      let duration = 'PT';
+      if (hours != '0') {
+        duration = duration + hours + 'H';
+      }
+      if (minutes != '0') {
+        duration = duration + minutes + 'M';
+      }
+      duration = duration + seconds + 'S';
+      this.videoForm.get('duration')?.setValue(duration);
+
       this.adminVideoService
-        .updateVideoCore(this.videoForm.value.id, this.videoForm.value)
+        .updateVideo(this.videoForm.value.id, this.videoForm.value)
         .subscribe({
           next: (response: Video) => {
             console.log('Video saved successfully with ID:', response.id);
@@ -72,26 +103,20 @@ export class UpdateVideoComponent {
             console.error('Error occurred while updating video:', error);
           },
         });
-    } else {
-      console.error('Form is invalid. Cannot update video.');
     }
   }
 
-  private updateVideoFeed(): void {
-    if (this.videoForm && this.videoForm.valid) {
-      this.adminVideoService
-        .updateVideoFeed(this.videoForm.value.id, this.videoForm.value)
-        .subscribe({
-          next: (response: Video) => {
-            console.log('Video updated successfully with ID:', response.id);
-            this.closeModal();
-          },
-          error: (error) => {
-            console.error('Error occurred while updating video:', error);
-          },
-        });
-    } else {
-      console.error('Form is invalid. Cannot update video.');
+  public onDurationMinutesInput(event: any): void {
+    const inputValue = parseInt(event.target.value, 10);
+    if (inputValue > 60) {
+      this.videoForm!.get('durationMinutes')!.setValue(60);
+    }
+  }
+
+  public onDurationSecondsInput(event: any): void {
+    const inputValue = parseInt(event.target.value, 10);
+    if (inputValue > 60) {
+      this.videoForm!.get('durationSeconds')!.setValue(60);
     }
   }
 }

@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      selectedEnvironment: ['', [Validators.required]],
     });
   }
 
@@ -48,53 +47,17 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
-    if (this.loginForm) {
-      const selectedEnvironment = this.loginForm.value.selectedEnvironment;
-      if (this.loginForm.valid) {
-        if (selectedEnvironment === 'core') {
-          this.coreLogin();
-        } else if (selectedEnvironment === 'feed') {
-          this.feedLogin();
-        }
-      }
-    }
-  }
-
-  private feedLogin(): void {
-    if (this.loginForm) {
+    if (this.loginForm && this.loginForm.valid) {
       this.authenticationService
-        .feedLogin(this.loginForm.value.username, this.loginForm.value.password)
+        .adminLogin(
+          this.loginForm.value.username,
+          this.loginForm.value.password
+        )
         .subscribe({
           next: (response: AuthenticationResponse) => {
-            this.storageService.setFeedToken(response.jwtToken);
-            this.storageService.setFeedRole(response.role.toString());
-            this.router.navigate(['/admin/feed'], {
-              queryParams: { table: 'info' },
-            });
-          },
-          error: (error) => {
-            if (error.error.message === 'Bad credentials') {
-              this.showErrorMessage = true;
-              console.error(
-                'Error logging in the feed: Invalid credentials provided'
-              );
-            } else {
-              console.error('Error logging in the feed:', error);
-            }
-          },
-        });
-    }
-  }
-
-  private coreLogin(): void {
-    if (this.loginForm) {
-      this.authenticationService
-        .coreLogin(this.loginForm.value.username, this.loginForm.value.password)
-        .subscribe({
-          next: (response: AuthenticationResponse) => {
-            this.storageService.setCoreToken(response.jwtToken);
-            this.storageService.setCoreRole(response.role.toString());
-            this.router.navigate(['/admin/core'], {
+            this.storageService.setToken(response.jwtToken);
+            this.storageService.setRole(response.role.toString());
+            this.router.navigate(['/admin/home'], {
               queryParams: { table: 'info' },
             });
           },

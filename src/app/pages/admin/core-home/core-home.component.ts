@@ -6,6 +6,7 @@ import { VideoTableComponent } from '../../../common-components/admin/video-tabl
 import { UserTableComponent } from '../../../common-components/admin/user-table/user-table.component';
 import { ChannelTableComponent } from '../../../common-components/admin/channel-table/channel-table.component';
 import { AdminInfoComponent } from '../../../common-components/admin/admin-info/admin-info.component';
+import { VideoSyncTableComponent } from '../../../common-components/admin/video-sync-table/video-sync-table.component';
 
 @Component({
   selector: 'app-core-home',
@@ -17,13 +18,14 @@ import { AdminInfoComponent } from '../../../common-components/admin/admin-info/
     UserTableComponent,
     ChannelTableComponent,
     AdminInfoComponent,
+    VideoSyncTableComponent,
   ],
   templateUrl: './core-home.component.html',
   styleUrl: './core-home.component.scss',
 })
 export class CoreHomeComponent {
   selectedTable: string | null = null;
-  tableList: string[] = ['info', 'videos', 'users', 'channels'];
+  tableList: string[] = ['info', 'videos', 'users', 'channels', 'sync'];
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
@@ -34,7 +36,7 @@ export class CoreHomeComponent {
   }
 
   public changeTable(table: string): void {
-    this.router.navigate(['/admin/core'], {
+    this.router.navigate(['/admin/home'], {
       queryParams: { table: table },
     });
   }

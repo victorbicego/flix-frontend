@@ -18,7 +18,6 @@ import { CommonModule } from '@angular/common';
 })
 export class CreateUserComponent {
   @Output() closePopUp: EventEmitter<void> = new EventEmitter<void>();
-  @Input() environment: string | null = null;
   userForm: FormGroup | null = null;
   showPassword: boolean = false;
   showRepeatPassword: boolean = false;
@@ -72,33 +71,8 @@ export class CreateUserComponent {
   }
 
   public createUser(): void {
-    if (this.environment === 'core') {
-      this.createUserCore();
-    }
-    if (this.environment === 'feed') {
-      this.createUserFeed();
-    }
-  }
-
-  private createUserCore(): void {
     if (this.userForm && this.userForm.valid) {
-      this.adminUserService.saveUserCore(this.userForm.value).subscribe({
-        next: (response: User) => {
-          console.log('User saved successfully with ID:', response.id);
-          this.closeModal();
-        },
-        error: (error) => {
-          console.error('Error occurred while saving user:', error);
-        },
-      });
-    } else {
-      console.error('Form is invalid. Cannot save user.');
-    }
-  }
-
-  private createUserFeed(): void {
-    if (this.userForm && this.userForm.valid) {
-      this.adminUserService.saveUserFeed(this.userForm.value).subscribe({
+      this.adminUserService.saveUser(this.userForm.value).subscribe({
         next: (response: User) => {
           console.log('User saved successfully with ID:', response.id);
           this.closeModal();

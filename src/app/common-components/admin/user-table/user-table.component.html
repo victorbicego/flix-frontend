@@ -10,7 +10,6 @@
 <div class="interaction-container">
   <button class="standard-button" (click)="openCreateModal()">Add User</button>
   <app-table-pagination
-    *ngIf="userList.length > 0"
     [currentPage]="currentPage"
     [pageSize]="pageSize"
     [list]="userList"
@@ -24,26 +23,22 @@
   *ngIf="isCreateModalOpen"
   class="modal-container"
   (closePopUp)="closeCreateModal()"
-  [environment]="environment"
 ></app-create-user>
 <app-update-user
   *ngIf="isUpdateModalOpen && userToWork != null"
   class="modal-container"
   (closePopUp)="closeUpdateModal()"
   [userToEdit]="userToWork"
-  [environment]="environment"
 ></app-update-user>
 <app-delete-user
   *ngIf="isDeleteModalOpen && userToWork != null"
   class="modal-container"
   (closePopUp)="closeDeleteModal()"
   [userToDelete]="userToWork"
-  [environment]="environment"
 ></app-delete-user>
 <app-update-password
   *ngIf="isUpdatePasswordModalOpen && userToWork != null"
   class="modal-container"
   (closePopUp)="closeUpdatePasswordModal()"
   [userToEdit]="userToWork"
-  [environment]="environment"
 ></app-update-password>

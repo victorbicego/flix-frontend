@@ -24,13 +24,11 @@
   *ngIf="isCreateModalOpen"
   class="modal-container"
   (closePopUp)="closeCreateModal()"
-  [environment]="environment"
 ></app-create-channel>
 <app-update-channel
   *ngIf="isUpdateModalOpen"
   class="modal-container"
   (closePopUp)="closeUpdateModal()"
-  [environment]="environment"
   [channelToEdit]="channelToWork"
 ></app-update-channel>
 <app-delete-channel
@@ -38,5 +36,4 @@
   class="modal-container"
   (closePopUp)="closeDeleteModal()"
   [channelToDelete]="channelToWork"
-  [environment]="environment"
 ></app-delete-channel>

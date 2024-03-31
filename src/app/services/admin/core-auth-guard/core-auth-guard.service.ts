@@ -9,9 +9,9 @@ export class CoreAuthGuardService implements CanActivate {
   constructor(private router: Router, private storageService: StorageService) {}
 
   canActivate(): boolean {
-    const coreToken = this.storageService.getCoreToken();
-    const coreRole = this.storageService.getCoreRole();
-    if (coreToken != null && coreRole != null && coreRole === 'ADMIN') {
+    const token = this.storageService.getToken();
+    const role = this.storageService.getRole();
+    if (token != null && role != null && role === 'ADMIN') {
       return true;
     }
     this.router.navigate(['/admin/login']);

@@ -3,11 +3,12 @@ import { Component, Input } from '@angular/core';
 import { VideoChannel } from '../../../interfaces/general/video-channel';
 import { VideoUtilsService } from '../../../services/general/video-utils/video-utils.service';
 import { Router } from '@angular/router';
+import { ConvertDurationPipe } from '../../../services/general/convert-duration-pipe/convert-duration.pipe';
 
 @Component({
   selector: 'app-search-result',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ConvertDurationPipe],
   templateUrl: './search-result.component.html',
   styleUrl: './search-result.component.scss',
 })

@@ -1,0 +1,13 @@
+<div class="modal-container-out" *ngIf="video != null">
+  <div class="popup-container">
+    <div class="title-container">
+      <h2>{{ video.title }}</h2>
+      <button class="close-button" (click)="closeModal()">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div class="form-group">
+      <p [innerHTML]="video.description | convertDescription"></p>
+    </div>
+  </div>
+</div>

@@ -2,22 +2,6 @@
   <h2>Admin Login</h2>
 
   <form *ngIf="loginForm != null" (ngSubmit)="login()" [formGroup]="loginForm">
-    <div class="environment-container">
-      <select
-        class="standard-input environment-select"
-        id="environment"
-        name="environment"
-        formControlName="selectedEnvironment"
-        required
-        (change)="clearErrorMessage()"
-      >
-        <option value="" disabled selected>Select Environment</option>
-        <option value="core">core</option>
-        <option value="feed">feed</option>
-      </select>
-      <i class="material-icons">keyboard_arrow_down</i>
-    </div>
-
     <div class="form-group">
       <input
         class="standard-input"

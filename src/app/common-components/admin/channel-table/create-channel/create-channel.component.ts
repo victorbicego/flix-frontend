@@ -18,7 +18,6 @@ import { CommonModule } from '@angular/common';
 })
 export class CreateChannelComponent {
   @Output() closePopUp: EventEmitter<void> = new EventEmitter<void>();
-  @Input() environment: string | null = null;
   channelForm: FormGroup | null = null;
 
   constructor(
@@ -46,22 +45,16 @@ export class CreateChannelComponent {
   }
 
   public createChannel(): void {
-    if (
-      this.environment === 'core' &&
-      this.channelForm &&
-      this.channelForm.valid
-    ) {
-      this.adminChannelService
-        .saveChannelCore(this.channelForm.value)
-        .subscribe({
-          next: (response: Channel) => {
-            console.log('Channel saved successfully with ID:', response.id);
-            this.closeModal();
-          },
-          error: (error) => {
-            console.error('Error occurred while saving channel:', error);
-          },
-        });
+    if (this.channelForm && this.channelForm.valid) {
+      this.adminChannelService.saveChannel(this.channelForm.value).subscribe({
+        next: (response: Channel) => {
+          console.log('Channel saved successfully with ID:', response.id);
+          this.closeModal();
+        },
+        error: (error) => {
+          console.error('Error occurred while saving channel:', error);
+        },
+      });
     } else {
       console.error('Form is invalid. Cannot save channel.');
     }

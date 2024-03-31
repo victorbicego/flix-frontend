@@ -1,5 +1,6 @@
 <div class="main-container">
-  <div class="info-container" *ngIf="!isLoading">
+  <div class="info-container">
+    <app-channels-slider></app-channels-slider>
     <app-category-selection
       *ngIf="categoryList.length > 0"
       [categoryList]="categoryList"

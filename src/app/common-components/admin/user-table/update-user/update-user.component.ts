@@ -19,7 +19,6 @@ import { CommonModule } from '@angular/common';
 export class UpdateUserComponent {
   @Output() closePopUp: EventEmitter<void> = new EventEmitter<void>();
   @Input() userToEdit: User | null = null;
-  @Input() environment: string | null = null;
   userForm: FormGroup | null = null;
 
   constructor(
@@ -61,36 +60,9 @@ export class UpdateUserComponent {
   }
 
   public updateUser(): void {
-    if (this.environment === 'core') {
-      this.updateUserCore();
-    }
-    if (this.environment === 'feed') {
-      this.updateUserFeed();
-    }
-  }
-
-  private updateUserCore(): void {
     if (this.userForm && this.userForm.valid) {
       this.adminUserService
-        .updateUserCore(this.userForm.value.id, this.userForm.value)
-        .subscribe({
-          next: (response: User) => {
-            console.log('User saved successfully with ID:', response.id);
-            this.closeModal();
-          },
-          error: (error) => {
-            console.error('Error occurred while saving user:', error);
-          },
-        });
-    } else {
-      console.error('Form is invalid. Cannot save user.');
-    }
-  }
-
-  private updateUserFeed(): void {
-    if (this.userForm && this.userForm.valid) {
-      this.adminUserService
-        .updateUserFeed(this.userForm.value.id, this.userForm.value)
+        .updateUser(this.userForm.value.id, this.userForm.value)
         .subscribe({
           next: (response: User) => {
             console.log('User saved successfully with ID:', response.id);

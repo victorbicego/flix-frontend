@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Video } from '../../../../interfaces/general/video';
 import { Router } from '@angular/router';
+import { ConvertDurationPipe } from '../../../../services/general/convert-duration-pipe/convert-duration.pipe';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ConvertDurationPipe],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
@@ -19,16 +20,16 @@ export class TableComponent {
 
   constructor(private router: Router) {}
 
-  public emitOpenUpdateModal(user: Video): void {
-    this.openUpdateModal.emit(user);
+  public emitOpenUpdateModal(video: Video): void {
+    this.openUpdateModal.emit(video);
   }
 
-  public emitOpenDeleteModal(user: Video): void {
-    this.openDeleteModal.emit(user);
+  public emitOpenDeleteModal(video: Video): void {
+    this.openDeleteModal.emit(video);
   }
 
-  public emitOpenDescriptionModal(user: Video): void {
-    this.openDescriptionModal.emit(user);
+  public emitOpenDescriptionModal(video: Video): void {
+    this.openDescriptionModal.emit(video);
   }
 
   public navigateToSingleVideo(videoId: string): void {

@@ -23,7 +23,6 @@ import { UpdateChannelComponent } from './update-channel/update-channel.componen
   styleUrl: './channel-table.component.scss',
 })
 export class ChannelTableComponent implements OnInit {
-  @Input() environment: string | null = null;
   channelList: Channel[] = [];
   currentPage = 0;
   pageSize = 10;
@@ -42,18 +41,16 @@ export class ChannelTableComponent implements OnInit {
   }
 
   private getChannels(): void {
-    if (this.environment === 'core') {
-      this.adminChannelService
-        .getChannelsCore(this.currentPage, this.pageSize)
-        .subscribe({
-          next: (response: Channel[]) => {
-            this.channelList = response;
-          },
-          error: (error) => {
-            console.error('Error fetching users from the backend', error);
-          },
-        });
-    }
+    this.adminChannelService
+      .getChannels(this.currentPage, this.pageSize)
+      .subscribe({
+        next: (response: Channel[]) => {
+          this.channelList = response;
+        },
+        error: (error) => {
+          console.error('Error fetching users from the backend', error);
+        },
+      });
   }
 
   public nextPage(): void {
